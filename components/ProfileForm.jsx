@@ -21,30 +21,24 @@ export default function ProfileForm({ displayName, bio }) {
     <form action={action} className="flex flex-col gap-6">
       <label className="flex flex-col gap-2">
         <span className="text-xs uppercase tracking-widest text-muted">Nom affiché</span>
-        <input
-          name="displayName" defaultValue={displayName} maxLength={50}
+        <input name="displayName" defaultValue={displayName} maxLength={50}
           placeholder="Comment veux-tu être appelé·e ?"
-          className="rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-paper outline-none transition-colors focus:border-accent"
-        />
+          className="rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-paper outline-none transition-colors focus:border-violet" />
       </label>
-
       <label className="flex flex-col gap-2">
         <span className="text-xs uppercase tracking-widest text-muted">Bio</span>
-        <textarea
-          name="bio" defaultValue={bio} maxLength={280} rows={4}
+        <textarea name="bio" defaultValue={bio} maxLength={280} rows={4}
           onChange={(e) => setBioLen(e.target.value.length)}
           placeholder="Quelques mots sur toi…"
-          className="resize-none rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-paper outline-none transition-colors focus:border-accent"
-        />
+          className="resize-none rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-paper outline-none transition-colors focus:border-violet" />
         <span className="self-end text-xs text-muted">{bioLen}/280</span>
       </label>
-
       <div className="flex items-center gap-4">
         <button type="submit" disabled={isPending}
-          className="rounded-full bg-accent px-6 py-3 font-medium text-ink transition-opacity disabled:opacity-50">
+          className="rounded-full bg-violet px-6 py-3 font-medium text-white transition-opacity disabled:opacity-50">
           {isPending ? "Enregistrement…" : "Enregistrer"}
         </button>
-        {saved && <span className="text-sm text-accent">✓ Enregistré</span>}
+        {saved && <span className="text-sm text-violet">✓ Enregistré</span>}
       </div>
     </form>
   );
