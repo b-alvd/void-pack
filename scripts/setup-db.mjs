@@ -1,14 +1,21 @@
 import { createClient } from "@libsql/client";
 import { readFileSync } from "node:fs";
 
-// Charge .env / .env.development si présents (sans dépendance)
-for (const f of [".env", ".env.development", ".env.local"]) {
-  try {
-    for (const line of readFileSync(f, "utf8").split("\n")) {
-      const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/);
-      if (m && !process.env[m[1]]) process.env[m[1]] = m[2].replace(/^["']|["']$/g, "");
-    }
-  } catch {}
+const envFile = process.argv[2] || ".env";
+
+try {
+  for (const line of readFileSync(envFile, "utf8").split("\n")) {
+    const m = line.match(/^\s*([A-Z0-9_]+)\s*=\s*(.*)\s*$/);
+    if (m) process.env[m[1]] = m[2].replace(/^["']|["']$/g, "");
+  }
+} catch {
+  console.error(`✗ Fichier introuvable : ${envFile}`);
+  process.exit(1);
+}
+
+if (!process.env.TURSO_DATABASE_URL) {
+  console.error(`✗ TURSO_DATABASE_URL manquante dans ${envFile}`);
+  process.exit(1);
 }
 
 const client = createClient({
@@ -32,4 +39,5 @@ CREATE TABLE IF NOT EXISTS sessions (
   expires_at INTEGER NOT NULL
 );
 `);
-console.log("✓ Tables créées dans", process.env.TURSO_DATABASE_URL);
+console.log(`✓ Tables prêtes dans ${process.env.TURSO_DATABASE_URL}`);
+console.log(`  (source : ${envFile})`);
