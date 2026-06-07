@@ -14,17 +14,12 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   providers: [Discord],
   session: { strategy: "database" },
   callbacks: {
-    // On expose l'id et les champs de profil dans la session
     session({ session, user }) {
       session.user.id = user.id;
-      // @ts-expect-error - champs personnalisés ajoutés au schéma
       session.user.displayName = user.displayName;
-      // @ts-expect-error
       session.user.bio = user.bio;
       return session;
     },
   },
-  pages: {
-    signIn: "/", // on gère la connexion depuis la page d'accueil
-  },
+  pages: { signIn: "/" },
 });

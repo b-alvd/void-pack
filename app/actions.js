@@ -6,7 +6,7 @@ import { users } from "@/src/db/schema";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 
-export async function updateProfile(formData: FormData) {
+export async function updateProfile(formData) {
   const session = await auth();
   if (!session?.user?.id) throw new Error("Non authentifié");
 
