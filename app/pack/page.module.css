@@ -1,0 +1,14 @@
+.main {
+  position: relative;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+}
+.inner { animation: rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.kicker { color: var(--violet); font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; margin: 0 0 12px; }
+.title { font-family: var(--font-display); font-size: 48px; letter-spacing: -0.02em; margin: 0 0 12px; }
+.sub { color: var(--muted); margin: 0; }
+@keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }

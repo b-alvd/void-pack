@@ -1,0 +1,70 @@
+.trigger {
+  margin-left: auto;
+  align-self: flex-start;
+  border: 1px solid var(--hairline);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--paper);
+  font-size: 13px;
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+.trigger:hover { border-color: rgba(124, 58, 237, 0.6); background: rgba(124, 58, 237, 0.12); }
+
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(3, 2, 8, 0.7);
+  backdrop-filter: blur(4px);
+  animation: fade 0.2s ease both;
+}
+.dialog {
+  width: 100%;
+  max-width: 440px;
+  border: 1px solid var(--hairline);
+  border-radius: 18px;
+  padding: 28px;
+  background:
+    radial-gradient(120% 120% at 100% 0%, rgba(124, 58, 237, 0.18), transparent 55%),
+    #0c0a16;
+  animation: pop 0.25s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
+.title { font-family: var(--font-display); font-size: 22px; margin: 0 0 20px; }
+
+.form { display: flex; flex-direction: column; gap: 18px; }
+.field { display: flex; flex-direction: column; gap: 8px; }
+.label { font-size: 12px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+.input, .textarea {
+  border: 1px solid var(--hairline);
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 10px;
+  padding: 12px 14px;
+  color: var(--paper);
+  font-size: 15px;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+.input:focus, .textarea:focus { border-color: var(--violet); }
+.textarea { resize: none; }
+.count { align-self: flex-end; font-size: 12px; color: var(--muted); }
+
+.actions { display: flex; justify-content: flex-end; gap: 12px; margin-top: 4px; }
+.cancel {
+  border: none; background: transparent; color: var(--muted);
+  font-size: 14px; padding: 12px 16px; cursor: pointer; transition: color 0.2s ease;
+}
+.cancel:hover { color: var(--paper); }
+.save {
+  border: none; border-radius: 999px; background: var(--violet); color: #fff;
+  font-weight: 500; padding: 12px 22px; cursor: pointer; transition: opacity 0.2s ease;
+}
+.save:disabled { opacity: 0.5; cursor: default; }
+
+@keyframes fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pop { from { opacity: 0; transform: translateY(10px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }

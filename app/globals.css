@@ -1,7 +1,27 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+:root {
+  --bg: #060410;
+  --paper: #f4f1ea;
+  --muted: #8b8b8b;
+  --violet: #7c3aed;
+  --hairline: rgba(255, 255, 255, 0.1);
+  --font-display: "Fraunces", Georgia, serif;
+  --font-sans: "Geist", system-ui, -apple-system, sans-serif;
+}
 
-body { background: #060410; color: #f4f1ea; -webkit-font-smoothing: antialiased; }
-@keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-.rise { animation: rise 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--paper);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; }
+
+/* Coupe toutes les animations si l'utilisateur le demande (cible * donc indépendant des noms) */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; }
+}

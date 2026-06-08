@@ -2,6 +2,7 @@
 
 import { useState, useTransition } from "react";
 import { updateProfile } from "@/app/actions";
+import styles from "./ProfileForm.module.css";
 
 export default function ProfileForm({ displayName, bio }) {
   const [isPending, startTransition] = useTransition();
@@ -18,27 +19,26 @@ export default function ProfileForm({ displayName, bio }) {
   }
 
   return (
-    <form action={action} className="flex flex-col gap-6">
-      <label className="flex flex-col gap-2">
-        <span className="text-xs uppercase tracking-widest text-muted">Nom affiché</span>
+    <form action={action} className={styles.form}>
+      <label className={styles.field}>
+        <span className={styles.fieldLabel}>Nom affiché</span>
         <input name="displayName" defaultValue={displayName} maxLength={50}
-          placeholder="Comment veux-tu être appelé·e ?"
-          className="rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-paper outline-none transition-colors focus:border-violet" />
+          placeholder="Comment veux-tu être appelé·e ?" className={styles.input} />
       </label>
-      <label className="flex flex-col gap-2">
-        <span className="text-xs uppercase tracking-widest text-muted">Bio</span>
+
+      <label className={styles.field}>
+        <span className={styles.fieldLabel}>Bio</span>
         <textarea name="bio" defaultValue={bio} maxLength={280} rows={4}
           onChange={(e) => setBioLen(e.target.value.length)}
-          placeholder="Quelques mots sur toi…"
-          className="resize-none rounded-lg border border-white/10 bg-black/30 px-4 py-3 text-paper outline-none transition-colors focus:border-violet" />
-        <span className="self-end text-xs text-muted">{bioLen}/280</span>
+          placeholder="Quelques mots sur toi…" className={styles.textarea} />
+        <span className={styles.count}>{bioLen}/280</span>
       </label>
-      <div className="flex items-center gap-4">
-        <button type="submit" disabled={isPending}
-          className="rounded-full bg-violet px-6 py-3 font-medium text-white transition-opacity disabled:opacity-50">
+
+      <div className={styles.row}>
+        <button type="submit" disabled={isPending} className={styles.submit}>
           {isPending ? "Enregistrement…" : "Enregistrer"}
         </button>
-        {saved && <span className="text-sm text-violet">✓ Enregistré</span>}
+        {saved && <span className={styles.saved}>✓ Enregistré</span>}
       </div>
     </form>
   );

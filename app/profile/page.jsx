@@ -1,32 +1,86 @@
-import { redirect } from "next/navigation";
 import Link from "next/link";
+import { redirect } from "next/navigation";
 import { getSession } from "@/src/lib/session";
-import ProfileForm from "@/components/ProfileForm";
+import EditProfile from "@/components/EditProfile";
+import styles from "./page.module.css";
+
+function memberSince(date) {
+  if (!date) return null;
+  return new Date(date).toLocaleDateString("fr-FR", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+}
 
 export default async function ProfilePage() {
   const user = await getSession();
   if (!user) redirect("/");
 
+  const level = user.level ?? 1;
+  const xp = user.xp ?? 0;
+  const xpMax = 100;
+  const xpPct = Math.min(100, Math.round((xp / xpMax) * 100));
+  const initial = (user.displayName || user.username || "?").charAt(0).toUpperCase();
+  const since = memberSince(user.createdAt);
+
   return (
-    <main className="relative z-10 min-h-screen px-8 py-10 max-w-2xl mx-auto">
-      <nav className="flex items-center justify-between mb-16">
-        <Link href="/" className="text-sm text-muted hover:text-paper transition-colors">← Accueil</Link>
-        <a href="/api/auth/logout" className="text-sm text-muted hover:text-paper transition-colors">Déconnexion</a>
-      </nav>
-
-      <header className="rise flex items-center gap-5 mb-12">
-        {user.avatar && <img src={user.avatar} alt="" className="h-20 w-20 rounded-full ring-1 ring-white/15" />}
-        <div>
-          <h1 className="font-display text-4xl tracking-tight">{user.displayName || user.username}</h1>
-          <p className="text-muted text-sm mt-1">@{user.username}</p>
+    <main className={styles.main}>
+      <section className={styles.hero}>
+        <div className={styles.heroTop}>
+          {user.avatar ? (
+            <img src={user.avatar} alt="" className={styles.avatar} />
+          ) : (
+            <div className={styles.avatarFallback}>{initial}</div>
+          )}
+          <div className={styles.identity}>
+            <h1 className={styles.name}>{user.displayName || user.username}</h1>
+            <p className={styles.handle}>@{user.username}</p>
+            {user.bio && <p className={styles.bio}>{user.bio}</p>}
+          </div>
+          <EditProfile displayName={user.displayName ?? ""} bio={user.bio ?? ""} />
         </div>
-      </header>
 
-      <div className="rise rounded-2xl border border-white/10 bg-white/[0.02] p-8">
-        <h2 className="font-display text-2xl mb-1">Gestion du profil</h2>
-        <p className="text-muted text-sm mb-8">Enregistré dans ta base Turso.</p>
-        <ProfileForm displayName={user.displayName ?? ""} bio={user.bio ?? ""} />
+        <div className={styles.levelRow}>
+          <span className={styles.levelBadge}>Niveau {level}</span>
+          <span className={styles.xpText}>{xp} / {xpMax} XP</span>
+        </div>
+        <div className={styles.xpTrack}>
+          <div className={styles.xpFill} style={{ width: `${xpPct}%` }} />
+        </div>
+      </section>
+
+      <div className={styles.stats}>
+        <div className={styles.stat} style={{ animationDelay: "0.05s" }}>
+          <div className={styles.statLabel}>Collection</div>
+          <div className={styles.statValue}>0</div>
+          <div className={styles.statHint}>cartes</div>
+        </div>
+        <div className={styles.stat} style={{ animationDelay: "0.1s" }}>
+          <div className={styles.statLabel}>Packs ouverts</div>
+          <div className={styles.statValue}>0</div>
+        </div>
+        <div className={styles.stat} style={{ animationDelay: "0.15s" }}>
+          <div className={styles.statLabel}>Rareté max</div>
+          <div className={styles.statValue}>-</div>
+        </div>
       </div>
+
+      <section className={styles.section}>
+        <div className={styles.sectionHead}>
+          <h2 className={styles.sectionTitle}>Ma collection</h2>
+          <span className={styles.sectionCount}>0 carte</span>
+        </div>
+        <div className={styles.empty}>
+          <p className={styles.emptyText}>Tu n'as pas encore ouvert de pack.</p>
+          <Link href="/" className={styles.cta}>Ouvrir un pack</Link>
+        </div>
+      </section>
+
+      <footer className={styles.footer}>
+        {since && <span className={styles.footerSince}>Membre depuis {since}</span>}
+        <a href="/api/auth/logout" className={styles.logout}>Déconnexion</a>
+      </footer>
     </main>
   );
 }

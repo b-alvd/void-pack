@@ -1,4 +1,5 @@
 import "./globals.css";
+import HudFrame from "@/components/HudFrame";
 
 export const metadata = {
   title: "Void Pack",
@@ -16,7 +17,10 @@ export default function RootLayout({ children }) {
           rel="stylesheet"
         />
       </head>
-      <body className="font-sans relative">{children}</body>
+      <body>
+        {children}
+        <HudFrame />
+      </body>
     </html>
   );
 }

@@ -1,49 +1,75 @@
-function Crosshair({ className }) {
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import styles from "./HudFrame.module.css";
+
+// Les sections du HUD. Sur chaque page, on affiche les DEUX autres.
+const SECTIONS = [
+  { label: "VOID", href: "/" },
+  { label: "PACK", href: "/pack" },
+  { label: "PROFIL", href: "/profile" },
+];
+
+function Crosshair({ position, delay = "0s" }) {
   return (
-    <svg className={`absolute ${className}`} width="26" height="26" viewBox="0 0 26 26"
-      fill="none" stroke="currentColor" strokeWidth="1">
-      <line x1="13" y1="2" x2="13" y2="24" />
-      <line x1="2" y1="13" x2="24" y2="13" />
-    </svg>
+    <span className={`${styles.crosshair} ${styles[position]}`}>
+      <svg className={styles.reticle} style={{ animationDelay: delay }}
+        width="26" height="26" viewBox="0 0 26 26"
+        fill="none" stroke="currentColor" strokeWidth="1">
+        <line x1="13" y1="2" x2="13" y2="24" />
+        <line x1="2" y1="13" x2="24" y2="13" />
+      </svg>
+    </span>
   );
 }
 
-function Chevrons({ dir = "down" }) {
+function Chevrons({ dir = "down", delay = "0s" }) {
   return (
-    <svg className={dir === "up" ? "rotate-180" : ""} width="16" height="20" viewBox="0 0 16 20"
-      fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M2 3l6 5 6-5" />
-      <path d="M2 11l6 5 6-5" />
-    </svg>
+    <span className={dir === "up" ? styles.chevUp : undefined}>
+      <svg className={styles.chev} style={{ animationDelay: delay }}
+        width="16" height="20" viewBox="0 0 16 20"
+        fill="none" stroke="currentColor" strokeWidth="1.25"
+        strokeLinecap="round" strokeLinejoin="round">
+        <path d="M2 3l6 5 6-5" />
+        <path d="M2 11l6 5 6-5" />
+      </svg>
+    </span>
   );
 }
 
-function SideRail({ label, side }) {
-  const pos = side === "left" ? "left-5 md:left-8" : "right-5 md:right-8";
+function SideRail({ label, href, side }) {
   return (
-    <div className={`absolute top-1/2 -translate-y-1/2 ${pos} flex flex-col items-center gap-5 text-white/30`}>
-      <Chevrons dir="down" />
-      <span className="h-12 w-px bg-white/15" />
-      <div className="flex flex-col items-center gap-2 text-[11px] font-medium tracking-[0.2em] text-white/40">
+    <Link href={href} aria-label={label}
+      className={`${styles.rail} ${side === "left" ? styles.left : styles.right}`}>
+      <Chevrons dir="down" delay="0s" />
+      <span className={styles.line} />
+      <div className={styles.label}>
         {label.split("").map((c, i) => (<span key={i}>{c}</span>))}
       </div>
-      <span className="h-12 w-px bg-white/15" />
-      <Chevrons dir="up" />
-    </div>
+      <span className={styles.line} />
+      <Chevrons dir="up" delay="0.4s" />
+    </Link>
   );
 }
 
 export default function HudFrame() {
+  const pathname = usePathname();
+  // Les deux sections différentes de la page courante
+  const others = SECTIONS.filter((s) => s.href !== pathname).slice(0, 2);
+  const left = others[0];
+  const right = others[1];
+
   return (
-    <div aria-hidden className="pointer-events-none fixed inset-0 z-20">
-      <div className="absolute inset-6 md:inset-10 text-white/25">
-        <Crosshair className="top-0 left-0 -translate-x-1/2 -translate-y-1/2" />
-        <Crosshair className="top-0 right-0 translate-x-1/2 -translate-y-1/2" />
-        <Crosshair className="bottom-0 left-0 -translate-x-1/2 translate-y-1/2" />
-        <Crosshair className="bottom-0 right-0 translate-x-1/2 translate-y-1/2" />
+    <div className={styles.frame}>
+      <div className={styles.corners}>
+        <Crosshair position="topLeft" delay="0s" />
+        <Crosshair position="topRight" delay="1.2s" />
+        <Crosshair position="bottomLeft" delay="2.4s" />
+        <Crosshair position="bottomRight" delay="3.6s" />
       </div>
-      <SideRail label="VOID" side="left" />
-      <SideRail label="PACK" side="right" />
+      {left && <SideRail label={left.label} href={left.href} side="left" />}
+      {right && <SideRail label={right.label} href={right.href} side="right" />}
     </div>
   );
 }

@@ -10,8 +10,8 @@ export async function updateProfile(formData) {
   const user = await getSession();
   if (!user) throw new Error("Non authentifié");
 
-  const displayName = String(formData.get("displayName") ?? "").slice(0, 50);
-  const bio = String(formData.get("bio") ?? "").slice(0, 280);
+  const displayName = String(formData.get("displayName") ?? "").trim().slice(0, 50);
+  const bio = String(formData.get("bio") ?? "").trim().slice(0, 280);
 
   await db
     .update(users)
