@@ -4,7 +4,7 @@ import { db } from "@/src/db";
 import { sessions, users } from "@/src/db/schema";
 
 const COOKIE = "void_session";
-const MAX_AGE = 60 * 60 * 24 * 30; // 30 jours
+const MAX_AGE = 60 * 60 * 24 * 30;
 
 export async function createSession(userId) {
   const token = crypto.randomUUID() + crypto.randomUUID();

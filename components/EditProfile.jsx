@@ -13,10 +13,8 @@ export default function EditProfile({ displayName, bio }) {
   const [isPending, startTransition] = useTransition();
   const router = useRouter();
 
-  // Le portal ne peut viser document.body que côté client
   useEffect(() => setMounted(true), []);
 
-  // Échap pour fermer + on bloque le scroll du fond quand la modale est ouverte
   useEffect(() => {
     function onKey(e) { if (e.key === "Escape" && !isPending) setOpen(false); }
     if (open) {

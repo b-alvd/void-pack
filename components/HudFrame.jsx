@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./HudFrame.module.css";
 
-// Les sections du HUD. Sur chaque page, on affiche les DEUX autres.
 const SECTIONS = [
   { label: "VOID", href: "/" },
   { label: "PACK", href: "/pack" },
@@ -55,7 +54,6 @@ function SideRail({ label, href, side }) {
 
 export default function HudFrame() {
   const pathname = usePathname();
-  // Les deux sections différentes de la page courante
   const others = SECTIONS.filter((s) => s.href !== pathname).slice(0, 2);
   const left = others[0];
   const right = others[1];
