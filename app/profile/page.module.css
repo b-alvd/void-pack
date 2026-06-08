@@ -140,3 +140,38 @@
 .collName { font-family: var(--font-display); font-size: 16px; line-height: 1.15; margin-top: auto; }
 
 .main { padding-bottom: 140px; }
+
+@media (max-width: 640px) {
+  .main { padding: 50px 16px 130px; }
+
+  .hero { padding: 22px 18px; border-radius: 16px; }
+  .heroTop { gap: 14px; margin-bottom: 20px; }
+  .avatar, .avatarFallback { height: 64px; width: 64px; }
+  .avatarFallback { font-size: 26px; }
+  .name { font-size: 26px; }
+  .handle { font-size: 13px; }
+  .bio { font-size: 13px; }
+
+  .stats { gap: 10px; margin: 14px 0 20px; }
+  .stat { padding: 12px 10px; border-radius: 12px; }
+  .statLabel { font-size: 10px; letter-spacing: 0.08em; }
+  .statValue { font-size: 18px; margin-top: 4px; }
+
+  .section { padding: 20px 16px; border-radius: 16px; }
+  .sectionHead { margin-bottom: 18px; }
+  .sectionTitle { font-size: 20px; }
+
+  .collGrid { grid-template-columns: repeat(auto-fill, minmax(108px, 1fr)); gap: 10px; }
+  .collCard { padding: 14px 12px; min-height: 84px; }
+  .collName { font-size: 14px; }
+}
+
+@media (max-width: 400px) {
+  .name { font-size: 22px; }
+  .statValue { font-size: 16px; }
+  .stat { padding: 10px 8px; }
+
+  .footer { flex-wrap: wrap; gap: 12px; }
+  .footerSince { width: 100%; }
+  .logout { margin-left: 0; }
+}

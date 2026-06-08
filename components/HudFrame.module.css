@@ -55,8 +55,8 @@
 .chevUp { transform: rotate(180deg); display: inline-block; }
 
 @keyframes hudReticle {
-  0%, 100% { transform: rotate(0deg); opacity: 0.18; }
-  50%      { transform: rotate(90deg); opacity: 0.45; }
+  0%, 100% { transform: rotate(0deg); }
+  50%      { transform: rotate(90deg); }
 }
 @keyframes chevBob {
   0%, 100% { transform: translateY(0); opacity: 0.5; }
