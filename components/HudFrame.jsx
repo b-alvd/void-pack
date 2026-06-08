@@ -1,14 +1,24 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import styles from "./HudFrame.module.css";
 
-const SECTIONS = [
-  { label: "VOID", href: "/" },
-  { label: "PACK", href: "/pack" },
-  { label: "PROFIL", href: "/profile" },
-];
+const LABELS = {
+  "/": "ACCUEIL",
+  "/pack": "PACK",
+  "/cards": "CARTES",
+  "/community": "COMMUNAUTÉ",
+  "/profile": "PROFIL",
+};
+
+function currentLabel(pathname) {
+  const match = Object.keys(LABELS)
+    .filter((k) => k !== "/")
+    .find((k) => pathname === k || pathname.startsWith(k + "/"));
+  if (match) return LABELS[match];
+  if (pathname === "/") return LABELS["/"];
+  return "VOID";
+}
 
 function Crosshair({ position, delay = "0s" }) {
   return (
@@ -37,10 +47,9 @@ function Chevrons({ dir = "down", delay = "0s" }) {
   );
 }
 
-function SideRail({ label, href, side }) {
+function RailInner({ label }) {
   return (
-    <Link href={href} aria-label={label}
-      className={`${styles.rail} ${side === "left" ? styles.left : styles.right}`}>
+    <>
       <Chevrons dir="down" delay="0s" />
       <span className={styles.line} />
       <div className={styles.label}>
@@ -48,15 +57,13 @@ function SideRail({ label, href, side }) {
       </div>
       <span className={styles.line} />
       <Chevrons dir="up" delay="0.4s" />
-    </Link>
+    </>
   );
 }
 
 export default function HudFrame() {
   const pathname = usePathname();
-  const others = SECTIONS.filter((s) => s.href !== pathname).slice(0, 2);
-  const left = others[0];
-  const right = others[1];
+  const pageLabel = currentLabel(pathname);
 
   return (
     <div className={styles.frame}>
@@ -66,8 +73,14 @@ export default function HudFrame() {
         <Crosshair position="bottomLeft" delay="2.4s" />
         <Crosshair position="bottomRight" delay="3.6s" />
       </div>
-      {left && <SideRail label={left.label} href={left.href} side="left" />}
-      {right && <SideRail label={right.label} href={right.href} side="right" />}
+
+      <div className={`${styles.rail} ${styles.left}`} aria-hidden="true">
+        <RailInner label="VOID" />
+      </div>
+
+      <div className={`${styles.rail} ${styles.right}`} aria-hidden="true">
+        <RailInner label={pageLabel} />
+      </div>
     </div>
   );
 }

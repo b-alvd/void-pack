@@ -10,9 +10,7 @@
   inset: 24px;
   color: rgba(255, 255, 255, 0.25);
 }
-@media (min-width: 768px) {
-  .corners { inset: 40px; }
-}
+@media (min-width: 768px) { .corners { inset: 40px; } }
 
 .crosshair { position: absolute; }
 .topLeft     { top: 0; left: 0; transform: translate(-50%, -50%); }
@@ -20,10 +18,7 @@
 .bottomLeft  { bottom: 0; left: 0; transform: translate(-50%, 50%); }
 .bottomRight { bottom: 0; right: 0; transform: translate(50%, 50%); }
 
-.reticle {
-  animation: hudReticle 5s ease-in-out infinite;
-  transform-origin: center;
-}
+.reticle { animation: hudReticle 5s ease-in-out infinite; transform-origin: center; }
 
 .rail {
   position: absolute;
@@ -32,10 +27,9 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 20px;
+  gap: 18px;
   color: rgba(255, 255, 255, 0.3);
-  pointer-events: auto;
-  transition: color 0.25s ease;
+  pointer-events: none;
 }
 .left  { left: 20px; }
 .right { right: 20px; }
@@ -43,37 +37,30 @@
   .left  { left: 32px; }
   .right { right: 32px; }
 }
-.rail:hover { color: var(--violet); }
 
-.line {
-  height: 48px;
-  width: 1px;
-  background: rgba(255, 255, 255, 0.15);
-  transition: background 0.25s ease;
-}
-.rail:hover .line { background: rgba(124, 58, 237, 0.6); }
+.line { height: 44px; width: 1px; background: rgba(255, 255, 255, 0.15); }
 
 .label {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 8px;
+  gap: 7px;
   font-size: 11px;
   font-weight: 500;
   letter-spacing: 0.2em;
   color: rgba(255, 255, 255, 0.4);
-  transition: color 0.25s ease;
 }
-.rail:hover .label { color: var(--violet); }
 
 .chev { animation: chevBob 1.8s ease-in-out infinite; }
 .chevUp { transform: rotate(180deg); display: inline-block; }
 
 @keyframes hudReticle {
-  0%, 100% { transform: rotate(0deg); }
-  50%      { transform: rotate(90deg); }
+  0%, 100% { transform: rotate(0deg); opacity: 0.18; }
+  50%      { transform: rotate(90deg); opacity: 0.45; }
 }
 @keyframes chevBob {
   0%, 100% { transform: translateY(0); opacity: 0.5; }
   50%      { transform: translateY(3px); opacity: 1; }
 }
+
+@media (max-width: 600px) { .rail { display: none; } }

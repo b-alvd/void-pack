@@ -4,15 +4,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px;
+  padding: 24px 24px 140px;
   text-align: center;
 }
-.inner { display: flex; flex-direction: column; align-items: center; gap: 8px; animation: rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+.inner {
+  display: flex; flex-direction: column; align-items: center; gap: 10px;
+  animation: rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+}
 .kicker { color: var(--violet); font-size: 13px; letter-spacing: 0.3em; text-transform: uppercase; margin: 0; }
 .title { font-family: var(--font-display); font-size: 44px; letter-spacing: -0.02em; margin: 4px 0 0; }
-.sub { color: var(--muted); margin: 0 0 28px; }
-.gate { display: flex; flex-direction: column; align-items: center; gap: 16px; }
-.gateText { color: var(--muted); margin: 0; }
+.text { color: var(--muted); margin: 0 0 16px; max-width: 28rem; }
+.badge {
+  border: 1px solid var(--hairline); border-radius: 999px;
+  padding: 6px 16px; font-size: 12px; letter-spacing: 0.15em; text-transform: uppercase; color: var(--muted);
+}
 @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
-
-.main { padding-bottom: 120px; }

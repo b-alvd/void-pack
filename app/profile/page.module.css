@@ -7,7 +7,6 @@
   padding: 32px 24px 80px;
 }
 
-/* HERO */
 .hero {
   position: relative;
   overflow: hidden;
@@ -45,7 +44,6 @@
 .xpTrack { height: 8px; width: 100%; background: rgba(255, 255, 255, 0.08); border-radius: 999px; overflow: hidden; }
 .xpFill { height: 100%; border-radius: 999px; background: linear-gradient(90deg, var(--violet), #22d3ee); }
 
-/* STATS */
 .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin: 16px 0 24px; }
 .stat {
   border: 1px solid var(--hairline); border-radius: 14px; padding: 16px;
@@ -56,7 +54,6 @@
 .statValue { font-family: var(--font-display); font-size: 28px; margin-top: 6px; }
 .statHint { font-size: 11px; color: var(--muted); opacity: 0.7; }
 
-/* SECTION COLLECTION */
 .section {
   border: 1px solid var(--hairline); border-radius: 18px; padding: 28px;
   background: rgba(255, 255, 255, 0.02);
@@ -74,7 +71,6 @@
 }
 .cta:hover { transform: scale(1.03); }
 
-/* PIED DE PAGE : membre depuis + déconnexion */
 .footer {
   display: flex;
   align-items: center;
@@ -112,7 +108,6 @@
   max-width: 42ch;
 }
 
-/* Vue "non connecté" */
 .gate {
   position: relative;
   z-index: 10;
@@ -143,3 +138,5 @@
 }
 .collRarity { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rar); }
 .collName { font-family: var(--font-display); font-size: 16px; line-height: 1.15; margin-top: auto; }
+
+.main { padding-bottom: 140px; }
