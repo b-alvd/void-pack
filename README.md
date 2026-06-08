@@ -9,7 +9,6 @@ sessions stockées dans **Turso**, gestion de profil.
 - OAuth2 Discord implémenté à la main (`src/lib/discord.js`)
 - Sessions par cookie + table `sessions` en base (`src/lib/session.js`)
 - Drizzle ORM + Turso (libSQL)
-- Tailwind CSS
 
 Aucune dépendance d'authentification tierce : le flux est entièrement dans le repo,
 donc rien qui casse au gré des versions beta.

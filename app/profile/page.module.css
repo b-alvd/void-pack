@@ -74,7 +74,7 @@
 }
 .cta:hover { transform: scale(1.03); }
 
-/* PIED DE PAGE */
+/* PIED DE PAGE : membre depuis + déconnexion */
 .footer {
   display: flex;
   align-items: center;
@@ -111,3 +111,18 @@
   margin: 8px 0 0;
   max-width: 42ch;
 }
+
+/* Vue "non connecté" */
+.gate {
+  position: relative;
+  z-index: 10;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  text-align: center;
+}
+.gateInner { max-width: 420px; animation: rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; display: flex; flex-direction: column; align-items: center; gap: 16px; }
+.gateTitle { font-family: var(--font-display); font-size: 36px; letter-spacing: -0.02em; margin: 0; }
+.gateText { color: var(--muted); line-height: 1.6; margin: 0 0 8px; }

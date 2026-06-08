@@ -1,7 +1,7 @@
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { getSession } from "@/src/lib/session";
 import EditProfile from "@/components/EditProfile";
+import LoginButton from "@/components/LoginButton";
 import styles from "./page.module.css";
 
 function memberSince(date) {
@@ -15,7 +15,19 @@ function memberSince(date) {
 
 export default async function ProfilePage() {
   const user = await getSession();
-  if (!user) redirect("/");
+
+  // Pas connecté : on propose la connexion au lieu de rediriger
+  if (!user) {
+    return (
+      <main className={styles.gate}>
+        <div className={styles.gateInner}>
+          <h1 className={styles.gateTitle}>Ton profil t'attend</h1>
+          <p className={styles.gateText}>Connecte-toi avec Discord pour accéder à ton profil et ta collection.</p>
+          <LoginButton />
+        </div>
+      </main>
+    );
+  }
 
   const level = user.level ?? 1;
   const xp = user.xp ?? 0;
@@ -62,7 +74,7 @@ export default async function ProfilePage() {
         </div>
         <div className={styles.stat} style={{ animationDelay: "0.15s" }}>
           <div className={styles.statLabel}>Rareté max</div>
-          <div className={styles.statValue}>-</div>
+          <div className={styles.statValue}>—</div>
         </div>
       </div>
 

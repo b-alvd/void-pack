@@ -1,0 +1,14 @@
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  border-radius: 999px;
+  background: var(--violet);
+  color: #fff;
+  font-weight: 500;
+  padding: 16px 28px;
+  box-shadow: 0 0 40px -8px var(--violet);
+  transition: transform 0.2s ease;
+}
+.btn:hover { transform: scale(1.03); }
+.btn:active { transform: scale(1); }

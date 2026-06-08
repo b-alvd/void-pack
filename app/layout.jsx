@@ -16,6 +16,7 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400..600&family=Geist:wght@400;500&display=swap"
           rel="stylesheet"
         />
+        <link rel="icon" type="image/svg+xml" href="/logo-simple.png" />
       </head>
       <body>
         {children}
