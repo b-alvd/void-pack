@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "db:setup:dev": "node scripts/setup-db.mjs .env.development",
-    "db:setup:prod": "node scripts/setup-db.mjs .env.production"
+    "db:setup:prod": "node scripts/setup-db.mjs .env.production",
+    "gen:codes": "node scripts/gen-codes.mjs"
   },
   "dependencies": {
     "next": "15.5.19",

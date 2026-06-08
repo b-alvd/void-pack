@@ -126,3 +126,20 @@
 .gateInner { max-width: 420px; animation: rise 0.6s cubic-bezier(0.2, 0.8, 0.2, 1) both; display: flex; flex-direction: column; align-items: center; gap: 16px; }
 .gateTitle { font-family: var(--font-display); font-size: 36px; letter-spacing: -0.02em; margin: 0; }
 .gateText { color: var(--muted); line-height: 1.6; margin: 0 0 8px; }
+
+.collGrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); gap: 12px; }
+.collCard {
+  position: relative;
+  display: flex; flex-direction: column; gap: 6px;
+  border: 1px solid color-mix(in srgb, var(--rar) 45%, transparent);
+  border-radius: 12px;
+  padding: 16px 14px;
+  background: linear-gradient(160deg, color-mix(in srgb, var(--rar) 14%, transparent), rgba(255,255,255,0.02));
+  min-height: 96px;
+}
+.collCount {
+  position: absolute; top: 8px; right: 10px;
+  font-size: 11px; color: var(--muted);
+}
+.collRarity { font-size: 10px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--rar); }
+.collName { font-family: var(--font-display); font-size: 16px; line-height: 1.15; margin-top: auto; }
