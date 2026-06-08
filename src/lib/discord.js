@@ -22,7 +22,10 @@ export async function exchangeCode(code) {
       redirect_uri: process.env.DISCORD_REDIRECT_URI,
     }),
   });
-  if (!res.ok) throw new Error("Échec de l'échange du code Discord");
+  if (!res.ok) {
+    const detail = await res.text();
+    throw new Error(`Échec échange Discord (${res.status}): ${detail}`);
+  }
   return res.json();
 }
 
@@ -30,6 +33,9 @@ export async function fetchDiscordUser(accessToken) {
   const res = await fetch(`${DISCORD_API}/users/@me`, {
     headers: { Authorization: `Bearer ${accessToken}` },
   });
-  if (!res.ok) throw new Error("Échec de récupération du profil Discord");
+  if (!res.ok) {
+    const detail = await res.text();
+    throw new Error(`Échec profil Discord (${res.status}): ${detail}`);
+  }
   return res.json();
 }
